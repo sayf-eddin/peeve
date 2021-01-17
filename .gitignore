@@ -1,0 +1,8 @@
+# Secrets
+.env
+
+# Docker Dev Container
+docker-compose.yml
+Dockerfile
+entrypoint.sh
+.devcontainer/

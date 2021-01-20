@@ -105,10 +105,12 @@ def retweet(api, tweet_id):
 def start():
     print("Starting up...")
     api = oauth_login()
-    INTERVAL = 60 * 60 * 24
+    SLEEP_INTERVAL = 60 * 60 * 24
     CAITLIN_ID = 2172576189
     tweet_day = 0
     retweet_day = 0
+    TWEET_INTERVAL = 6
+    RETWEET_INTERVAL = 11
     line = int(environ.get("TWEET_LINE"))
     last_retweet_id = 0
 
@@ -121,7 +123,7 @@ def start():
             post_tweet(api, "happy birthday @caitsands! hope you have a good one. love you!")
         elif (date.today().month == 12) and (date.today().day == 25):
             post_tweet(api, "merry christmas! hope Eve has a good one.")
-        elif tweet_day >= 6:
+        elif tweet_day >= TWEET_INTERVAL:
             f = open("tweets.txt")
             content = f.readlines()
             if line >= len(content):
@@ -129,7 +131,7 @@ def start():
             post_tweet(api, content[line])
             f.close()
             tweet_day = 0
-        elif retweet_day >= 11:
+        elif retweet_day >= RETWEET_INTERVAL:
             latest_tweets = get_latest_tweets(api, CAITLIN_ID)
             if latest_tweets:
                 for latest_tweet in latest_tweets:
@@ -151,7 +153,7 @@ def start():
     
         tweet_day += 1
         retweet_day += 1
-        sleep(INTERVAL)
+        sleep(SLEEP_INTERVAL)
 
 
 if __name__ == "__main__":

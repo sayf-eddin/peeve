@@ -105,20 +105,21 @@ def retweet(api, tweet_id):
 def start():
     print("Starting up...")
     api = oauth_login()
-    SLEEP_INTERVAL = 60 * 60 * 24
+    SLEEP_INTERVAL = 60 * 60
     CAITLIN_ID = 2172576189
-    tweet_day = 0
-    retweet_day = 0
+    tweet_day = int(environ.get("TWEET_DAY"))
+    retweet_day = int(environ.get("RETWEET_DAY"))
     TWEET_INTERVAL = 6
     RETWEET_INTERVAL = 11
     line = int(environ.get("TWEET_LINE"))
     last_retweet_id = 0
 
-    post_tweet(api, "Hello world!")
     while (datetime.today().hour - 5) != 12:
-        sleep(60 * 60)
+        print("Waiting for noon...")
+        sleep(SLEEP_INTERVAL)
 
     while True:
+        print("Waking up")
         if (date.today().month == 1) and (date.today().day == 31):
             post_tweet(api, "happy birthday @caitsands! hope you have a good one. love you!")
         elif (date.today().month == 12) and (date.today().day == 25):
@@ -142,18 +143,17 @@ def start():
                         last_retweet_id = latest_tweet["id"]
                         break
             retweet_day = 0
-    
-        print(datetime.today())
+
         print(f"Days since last tweet: {tweet_day}")
         print(f"Last tweet on line {line}")
         print(f"Days since last retweet: {retweet_day}")
         print(f"ID of last retweet: {last_retweet_id}")
-        print("Sleeping")
-        print()
     
         tweet_day += 1
         retweet_day += 1
-        sleep(SLEEP_INTERVAL)
+        for i in range(24):
+            print("Sleeping...")
+            sleep(SLEEP_INTERVAL)
 
 
 if __name__ == "__main__":

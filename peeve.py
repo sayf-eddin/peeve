@@ -105,7 +105,7 @@ def retweet(api, tweet_id):
 def start():
     print("Starting up...")
     api = oauth_login()
-    SLEEP_INTERVAL = 60 * 60
+    SLEEP_INTERVAL = 60 * 20
     CAITLIN_ID = 2172576189
     tweet_day = int(environ.get("TWEET_DAY"))
     retweet_day = int(environ.get("RETWEET_DAY"))
@@ -151,7 +151,7 @@ def start():
     
         tweet_day += 1
         retweet_day += 1
-        for i in range(24):
+        for i in range(3 * 24):
             print("Sleeping...")
             sleep(SLEEP_INTERVAL)
 

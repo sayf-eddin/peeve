@@ -8,7 +8,8 @@ def start():
     print("Starting up...")
     api = oauth_login()
     SLEEP_INTERVAL = 60 * 20
-    CAITLIN_ID = 2172576189
+    USER_ID = int(environ.get("USER_ID"))
+    USERNAME = environ.get("USERNAME")
     tweet_day = int(environ.get("TWEET_DAY"))
     retweet_day = int(environ.get("RETWEET_DAY"))
     TWEET_INTERVAL = 6
@@ -23,7 +24,7 @@ def start():
     while True:
         print("Waking up")
         if (date.today().month == 1) and (date.today().day == 31):
-            post_tweet(api, "happy birthday @caitsands! hope you have a good one. love you!")
+            post_tweet(api, f"happy birthday {USERNAME}! hope you have a good one. love you!")
         elif (date.today().month == 12) and (date.today().day == 25):
             post_tweet(api, "merry christmas! hope Eve has a good one.")
         elif tweet_day >= TWEET_INTERVAL:
@@ -31,11 +32,12 @@ def start():
             content = f.readlines()
             if line >= len(content):
                 line = 0
-            post_tweet(api, content[line])
+            tweet = content[line].replace("???", USERNAME)
+            post_tweet(api, tweet)
             f.close()
             tweet_day = 0
         elif retweet_day >= RETWEET_INTERVAL:
-            latest_tweets = get_latest_tweets(api, CAITLIN_ID)
+            latest_tweets = get_latest_tweets(api, USER_ID)
             if latest_tweets:
                 for latest_tweet in latest_tweets:
                     if latest_tweet["id"] == last_retweet_id:

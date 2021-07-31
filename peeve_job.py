@@ -27,6 +27,7 @@ def start():
     elif tweet_day == 0:
         f = open("tweets.txt")
         content = f.readlines()
+        tweet = content[line].replace("???", USERNAME)
         while line >= len(content):
             line = len(content) - line
             tweet = content[line].replace("???", USERNAME)

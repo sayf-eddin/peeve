@@ -2,4 +2,4 @@ APScheduler==3.7.0
 Flask==2.1.0
 requests==2.25.1
 twitter==1.18.0
-requests==2.28.2
+requests==2.25.1

@@ -18,7 +18,7 @@ def start():
     RETWEET_INTERVAL = 11
     tweet_day = days_since % TWEET_INTERVAL
     retweet_day = days_since % RETWEET_INTERVAL
-    line = floor(days_since / TWEET_INTERVAL) - 1
+    line = floor(days_since / TWEET_INTERVAL) + 1
 
     if (date.today().month == 1) and (date.today().day == 31):
         post_tweet(api, f"happy birthday {USERNAME}! hope you have a good one. love you!")

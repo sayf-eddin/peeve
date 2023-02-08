@@ -4,8 +4,8 @@ import requests
 
 sched = BlockingScheduler()
 
-# Runs daily at 7pm UTC
-@sched.scheduled_job('cron', day_of_week='mon-sun', hour=19)
+# Runs daily at 8pm UTC, 3pm EST
+@sched.scheduled_job('cron', day_of_week='mon-sun', hour=20)
 def tweet_job():
     run_job()
 

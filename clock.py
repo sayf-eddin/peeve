@@ -10,7 +10,7 @@ def tweet_job():
     run_job()
 
 # Keep web instance awake by pinging every 25 minutes (1500 seconds)
-@sched.scheduled_job('interval', day_of_week='mon-sun', seconds=1500)
+@sched.scheduled_job('interval', seconds=1500)
 def awake_job():
     r = requests.get('https://pet-peeve.herokuapp.com/')
 

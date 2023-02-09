@@ -17,7 +17,7 @@ def start():
     TWEET_INTERVAL = 6
     RETWEET_INTERVAL = 11
     tweet_day = days_since % TWEET_INTERVAL
-    retweet_day = days_since % RETWEET_INTERVAL
+    # retweet_day = days_since % RETWEET_INTERVAL
     line = floor(days_since / TWEET_INTERVAL)
 
     if (date.today().month == 1) and (date.today().day == 31):
@@ -33,20 +33,20 @@ def start():
             tweet = content[line].replace("???", USERNAME)
         post_tweet(api, tweet)
         f.close()
-    elif retweet_day == 0:
-        latest_tweets = get_latest_tweets(api, USER_ID)
-        if latest_tweets:
-            for latest_tweet in latest_tweets:
-                created_date = datetime.strptime(latest_tweets[0]["created_at"].replace("+0000 ", ""), "%c")
-                if RETWEET_INTERVAL <= ((today - created_date).days + 1):
-                    break
-                if latest_tweet["favorite_count"] >= 10:
-                    retweet(api, latest_tweet["id"])
-                    break
+#     elif retweet_day == 0:
+#         latest_tweets = get_latest_tweets(api, USER_ID)
+#         if latest_tweets:
+#             for latest_tweet in latest_tweets:
+#                 created_date = datetime.strptime(latest_tweets[0]["created_at"].replace("+0000 ", ""), "%c")
+#                 if RETWEET_INTERVAL <= ((today - created_date).days + 1):
+#                     break
+#                 if latest_tweet["favorite_count"] >= 10:
+#                     retweet(api, latest_tweet["id"])
+#                     break
 
     print(f"Days since last tweet: {tweet_day}")
     print(f"Last tweet on line {line + 1}")
-    print(f"Days since last retweet: {retweet_day}")
+    # print(f"Days since last retweet: {retweet_day}")
 
 
 if __name__ == "__main__":
